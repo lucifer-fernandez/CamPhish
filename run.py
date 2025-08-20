@@ -1,8 +1,8 @@
 import subprocess
 import requests
 import time
-import shutil
 import os
+import signal
 
 PORT = 8080
 
@@ -35,9 +35,26 @@ try:
 
     print("[*] Press CTRL+C to stop servers.")
 
-    # keep running
-    php_proc.wait()
-    ngrok_proc.wait()
+    # keep running until CTRL+C
+    while True:
+        time.sleep(1)
 
-except FileNotFoundError:
-    print("[-] ngrok not found! Please install ngrok and put it in this folder or install globally.")
+except KeyboardInterrupt:
+    print("\n[!] Server stopped. Cleaning up...")
+
+    # terminate php and ngrok
+    php_proc.terminate()
+    ngrok_proc.terminate()
+
+    # make sure they are killed
+    try:
+        php_proc.wait(timeout=2)
+    except:
+        php_proc.kill()
+
+    try:
+        ngrok_proc.wait(timeout=2)
+    except:
+        ngrok_proc.kill()
+
+    print("[+] Cleanup complete. Goodbye!")
