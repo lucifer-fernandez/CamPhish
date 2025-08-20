@@ -1,1 +1,17 @@
-uploads/
+# Ignore uploads folder contents (but keep the folder)
+uploads/*
+!uploads/.gitkeep
+
+# Ignore ngrok binary
+ngrok
+ngrok.exe
+ngrok.zip
+
+# Python cache
+__pycache__/
+*.pyc
+
+# System/IDE files
+.DS_Store
+*.swp
+*.swo
