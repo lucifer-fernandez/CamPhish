@@ -11,6 +11,9 @@ print("[+] Starting PHP server on port", PORT, "...")
 # kill old php processes (if any)
 subprocess.Popen(["pkill", "-f", "php"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+# kill old ngrok processes (if any)
+subprocess.Popen(["pkill", "-f", "ngrok"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 # start php server
 php_proc = subprocess.Popen(["php", "-S", f"0.0.0.0:{PORT}"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
